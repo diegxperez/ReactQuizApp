@@ -1,0 +1,49 @@
+.card {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card__questionCount {
+  font-size: 14px;
+  background-color: var(--color-accent);
+  padding: 2px 12px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin-bottom: .5rem;
+}
+
+.card__questionText {
+  margin-bottom: 2rem;
+}
+
+.card__options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 1.2rem;
+}
+
+.card__optionButton {
+  text-align: start;
+  background-color: transparent;
+  color: inherit;
+  padding: 1.2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.card__submit {
+  margin-top: 1.4rem;
+  background-color: var(--color-accent);
+  padding: 12px 0;
+  color: inherit;
+  font-size: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+}

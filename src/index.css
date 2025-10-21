@@ -10,6 +10,12 @@
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+
+  --color-background: #1c1917;
+  --color-text-default: #e7e5e4;
+  --color-accent: #2563eb;
+  --color-accent-hover: #1e40af;
+  --color-border: #44403c;
 }
 
 *,
