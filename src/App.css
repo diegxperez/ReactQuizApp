@@ -3,6 +3,6 @@
   margin: 0 auto;
   background-color: var(--color-background);
   min-height: 100dvh;
-  display: grid;
-  place-items: center;
+  /* display: grid;
+  place-items: center; */
 }

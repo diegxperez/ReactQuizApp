@@ -1,7 +1,13 @@
 import s from './finalcard.module.css'
 import react from '../../assets/react.svg'
 
-export const FinalCard = () => {
+interface Props {
+  score: number;
+  totalQuestions: number;
+  handleResetGame: () => void;
+}
+
+export const FinalCard: React.FC<Props> = ({ score, totalQuestions, handleResetGame }) => {
   return (
     <div className={s.card}>
       <figure className={s.card__figure}>
@@ -9,9 +15,12 @@ export const FinalCard = () => {
       </figure>
       <h1 className={s.card__title}>¡Quiz Completado!</h1>
       <p className={s.card__description}>¡Excelente trabajo! Dominas React muy bien</p>
-      <p className={s.card__points}>9/10</p>
-      <p className={s.card__califications}>90% Correctas</p>
-      <button className={s.card__submit}>Intentar de Nuevo</button>
+      <p className={s.card__points}>{score}/{totalQuestions}</p>
+      <p className={s.card__califications}>{(score / totalQuestions) * 100}% Correctas</p>
+      <button
+        onClick={handleResetGame}
+        className={s.card__submit}
+      >Intentar de Nuevo</button>
     </div>
   )
 }

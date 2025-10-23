@@ -1,27 +1,41 @@
 // import type { Question } from '../../type/question.interface'
-import { OptionsCar } from '../OptionsCards/OptionsCards'
+import { OptionsCard } from '../OptionsCards/OptionsCards'
 import s from './questions.module.css'
-import { mockQuestions as questions } from '../../mock-data/questions.mock'
+import type { Question } from '../../type/question.interface';
+import type { GameStatus } from '../../type/gamestatus.interface';
 
 interface Props {
-  numberQuestion: number;
+  currentQuestionNumber: number;
+  questions: Question[]
+  handleNextQuestion: () => void;
+  handleGameState: (state: GameStatus) => void;
+  handleCountScore: () => void;
 }
 
+export const Questions: React.FC<Props> = ({ currentQuestionNumber, questions, handleNextQuestion, handleGameState, handleCountScore }) => {
+  const indexQuestion = currentQuestionNumber + 1;
+  const progressPercentage = Math.round((indexQuestion / questions.length) * 100);
 
-export const Questions: React.FC<Props> = ({ numberQuestion }) => {
   return (
     <div className={s.container}>
       <div className={s.progressbar}>
         <div className={s.progressbar__indicator}>
-          <p>Pregunta 1 de 10</p>
-          <p>10%</p>
+          <p>Pregunta {indexQuestion} de {questions.length}</p>
+          <p>{(indexQuestion / questions.length) * 100}%</p>
         </div>
 
         <div className={s.progressbar__container}>
-          <div className={s.progressbar__filler} />
+          <div
+            style={{ width: `${progressPercentage}%` }}
+            className={s.progressbar__filler} />
         </div>
       </div>
-      <OptionsCar numberQuestion={numberQuestion} questions={questions} />
+      <OptionsCard
+        numberQuestion={currentQuestionNumber}
+        questions={questions}
+        handleNextQuestion={handleNextQuestion}
+        handleGameState={handleGameState}
+        handleCountScore={handleCountScore} />
     </div>
 
   )
