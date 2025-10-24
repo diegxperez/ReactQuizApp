@@ -1,54 +1,60 @@
 import { useState } from "react";
 import type { GameStatus } from "./type/gamestatus.interface";
-import { InitialCard } from "./components/InitialCard/InitialCard"
-import { Questions } from "./components/QuestionCard/Questions"
+import { mockQuestions as questions } from "./mock-data/questions.mock";
 
-import { mockQuestions as questions } from './mock-data/questions.mock'
+import { InitialCard } from "./components/InitialCard/InitialCard";
+import { Questions } from "./components/QuestionCard/Questions";
 import { FinalCard } from "./components/FinalCard/FinalCard";
-import s from './quizapp.module.css';
+import s from "./quizapp.module.css";
 
 export const QuizApp = () => {
-  const [gameState, setGameState] = useState<GameStatus>('idle');
-  const [currentQuestionNumber, setCurrentQuestionNumber] = useState<number>(0)
   const [score, setScore] = useState<number>(0);
+  const [gameState, setGameState] = useState<GameStatus>("idle");
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 
-  const handleGameState = (state: GameStatus) => {
-    setGameState(state);
-  }
+  const startGame = () => {
+    setGameState("playing");
+  };
 
-  const handleNextQuestion = () => {
-    setCurrentQuestionNumber(currentQuestionNumber + 1)
-  }
+  const resetGame = () => {
+    setGameState("playing");
+    setCurrentQuestionIndex(0);
+    setScore(0);
+  };
 
-  const handleCountScore = () => {
+  const finishGame = () => {
+    setGameState("finished");
+  };
+
+  const goToNextQuestion = () => {
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
+  };
+
+  const incrementScore = () => {
     setScore(score + 1);
-  }
-
-  const handleResetGame = () => {
-    setGameState('playing');
-    setCurrentQuestionNumber(0);
-  }
+  };
 
   return (
     <>
       <div className={s.quiz__container}>
-        {
-          gameState === 'idle' ?
-            <InitialCard questions={questions.length} handleGameStatus={handleGameState} />
-            : gameState === 'playing'
-              ? <Questions
-                currentQuestionNumber={currentQuestionNumber}
-                questions={questions}
-                handleNextQuestion={handleNextQuestion}
-                handleGameState={handleGameState}
-                handleCountScore={handleCountScore} />
-              : <FinalCard
-                score={score}
-                totalQuestions={questions.length}
-                handleResetGame={handleResetGame}
-              />
-        }
+        {gameState === "idle" ? (
+          <InitialCard questions={questions.length} onStartGame={startGame} />
+        ) : gameState === "playing" ? (
+          <Questions
+            currentQuestionIndex={currentQuestionIndex}
+            questions={questions}
+            onGoToNextQuestion={goToNextQuestion}
+            onFinishGame={finishGame}
+            onIncrementScore={incrementScore}
+          />
+        ) : (
+          <FinalCard
+            score={score}
+            totalQuestions={questions.length}
+            onResetGame={resetGame}
+          />
+        )}
       </div>
     </>
-  )
-}
+  );
+};

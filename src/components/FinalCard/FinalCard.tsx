@@ -4,10 +4,10 @@ import react from '../../assets/react.svg'
 interface Props {
   score: number;
   totalQuestions: number;
-  handleResetGame: () => void;
+  onResetGame: () => void;
 }
 
-export const FinalCard: React.FC<Props> = ({ score, totalQuestions, handleResetGame }) => {
+export const FinalCard: React.FC<Props> = ({ score, totalQuestions, onResetGame }) => {
   return (
     <div className={s.card}>
       <figure className={s.card__figure}>
@@ -18,7 +18,7 @@ export const FinalCard: React.FC<Props> = ({ score, totalQuestions, handleResetG
       <p className={s.card__points}>{score}/{totalQuestions}</p>
       <p className={s.card__califications}>{(score / totalQuestions) * 100}% Correctas</p>
       <button
-        onClick={handleResetGame}
+        onClick={onResetGame}
         className={s.card__submit}
       >Intentar de Nuevo</button>
     </div>

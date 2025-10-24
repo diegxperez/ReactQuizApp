@@ -2,18 +2,17 @@
 import { OptionsCard } from '../OptionsCards/OptionsCards'
 import s from './questions.module.css'
 import type { Question } from '../../type/question.interface';
-import type { GameStatus } from '../../type/gamestatus.interface';
 
 interface Props {
-  currentQuestionNumber: number;
+  currentQuestionIndex: number;
   questions: Question[]
-  handleNextQuestion: () => void;
-  handleGameState: (state: GameStatus) => void;
-  handleCountScore: () => void;
+  onGoToNextQuestion: () => void;
+  onFinishGame: () => void;
+  onIncrementScore: () => void;
 }
 
-export const Questions: React.FC<Props> = ({ currentQuestionNumber, questions, handleNextQuestion, handleGameState, handleCountScore }) => {
-  const indexQuestion = currentQuestionNumber + 1;
+export const Questions: React.FC<Props> = ({ currentQuestionIndex, questions, onGoToNextQuestion, onFinishGame, onIncrementScore }) => {
+  const indexQuestion = currentQuestionIndex + 1;
   const progressPercentage = Math.round((indexQuestion / questions.length) * 100);
 
   return (
@@ -31,12 +30,11 @@ export const Questions: React.FC<Props> = ({ currentQuestionNumber, questions, h
         </div>
       </div>
       <OptionsCard
-        numberQuestion={currentQuestionNumber}
+        currentQuestionIndex={currentQuestionIndex}
         questions={questions}
-        handleNextQuestion={handleNextQuestion}
-        handleGameState={handleGameState}
-        handleCountScore={handleCountScore} />
+        onGoToNextQuestion={onGoToNextQuestion}
+        onFinishGame={onFinishGame}
+        onIncrementScore={onIncrementScore} />
     </div>
-
   )
 }

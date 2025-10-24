@@ -1,16 +1,15 @@
 import s from './initialcard.module.css'
 import react from '../../assets/react.svg'
 import React from 'react';
-import type { GameStatus } from '../../type/gamestatus.interface';
 
 interface Props {
   title?: string;
   description?: string;
   questions: number;
-  handleGameStatus: (status: GameStatus) => void;
+  onStartGame: () => void;
 }
 
-export const InitialCard: React.FC<Props> = ({ title, description, questions, handleGameStatus }) => {
+export const InitialCard: React.FC<Props> = ({ title, description, questions, onStartGame }) => {
   return (
     <div className={s.card}>
       <figure className={s.card__figure}>
@@ -20,7 +19,7 @@ export const InitialCard: React.FC<Props> = ({ title, description, questions, ha
       <p className={s.card__description}>{description ?? 'Prueba tus conocimientos sobre React'}</p>
       <p className={s.card__questions}>{questions} Preguntas</p>
       <button
-        onClick={() => handleGameStatus('playing')}
+        onClick={onStartGame}
         className={s.cta}>
         Comenzar Quiz
       </button>
