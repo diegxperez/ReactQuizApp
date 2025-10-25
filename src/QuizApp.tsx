@@ -1,37 +1,31 @@
-import { useState } from "react";
-import type { GameStatus } from "./type/gamestatus.interface";
+import { useReducer } from "react";
+// import type { GameStatus } from "./type/gamestatus.interface";
 import { mockQuestions as questions } from "./mock-data/questions.mock";
 
 import { InitialCard } from "./components/InitialCard/InitialCard";
-import { Questions } from "./components/QuestionCard/Questions";
+import { QuestionCard } from "./components/QuestionCard/QuestionCard";
 import { FinalCard } from "./components/FinalCard/FinalCard";
-import s from "./quizapp.module.css";
+import s from "./QuizApp.module.css";
+import { gameReducer, initialState } from "./reducer/gameReducer";
 
 export const QuizApp = () => {
-  const [score, setScore] = useState<number>(0);
-  const [gameState, setGameState] = useState<GameStatus>("idle");
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+  const [state, dispatch] = useReducer(gameReducer, initialState);
 
+  const { currentQuestionIndex, gameState, score } = state;
   const startGame = () => {
-    setGameState("playing");
-  };
-
-  const resetGame = () => {
-    setGameState("playing");
-    setCurrentQuestionIndex(0);
-    setScore(0);
+    dispatch({ type: "START-GAME" });
   };
 
   const finishGame = () => {
-    setGameState("finished");
+    dispatch({ type: "FINISH-GAME" });
   };
 
   const goToNextQuestion = () => {
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    dispatch({ type: "GO-TO-NEXT-QUESTION" });
   };
 
   const incrementScore = () => {
-    setScore(score + 1);
+    dispatch({ type: "INCREMENT-SCORE" });
   };
 
   return (
@@ -40,7 +34,7 @@ export const QuizApp = () => {
         {gameState === "idle" ? (
           <InitialCard questions={questions.length} onStartGame={startGame} />
         ) : gameState === "playing" ? (
-          <Questions
+          <QuestionCard
             currentQuestionIndex={currentQuestionIndex}
             questions={questions}
             onGoToNextQuestion={goToNextQuestion}
@@ -51,7 +45,7 @@ export const QuizApp = () => {
           <FinalCard
             score={score}
             totalQuestions={questions.length}
-            onResetGame={resetGame}
+            onResetGame={startGame}
           />
         )}
       </div>

@@ -1,7 +1,6 @@
-// import type { Question } from '../../type/question.interface'
-import { OptionsCard } from '../OptionsCards/OptionsCards'
 import s from './questions.module.css'
 import type { Question } from '../../type/question.interface';
+import { OptionsCard } from '../OptionsCard/OptionsCard';
 
 interface Props {
   currentQuestionIndex: number;
@@ -11,7 +10,7 @@ interface Props {
   onIncrementScore: () => void;
 }
 
-export const Questions: React.FC<Props> = ({ currentQuestionIndex, questions, onGoToNextQuestion, onFinishGame, onIncrementScore }) => {
+export const QuestionCard: React.FC<Props> = ({ currentQuestionIndex, questions, onGoToNextQuestion, onFinishGame, onIncrementScore }) => {
   const indexQuestion = currentQuestionIndex + 1;
   const progressPercentage = Math.round((indexQuestion / questions.length) * 100);
 

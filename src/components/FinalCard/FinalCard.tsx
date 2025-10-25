@@ -1,4 +1,4 @@
-import s from './finalcard.module.css'
+import s from './FinalCard.module.css'
 import react from '../../assets/react.svg'
 
 interface Props {

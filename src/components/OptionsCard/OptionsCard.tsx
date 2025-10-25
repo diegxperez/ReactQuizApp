@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import type { Question } from "../../type/question.interface";
-import s from "./optionscard.module.css";
+import s from "./OptionsCard.module.css";
 import { cn } from "../../util/classNames";
 
 interface Props {
@@ -57,21 +57,31 @@ export const OptionsCard: React.FC<Props> = ({
       </div>
       <button
         onClick={() => {
+          // Select answer
           const selectedAnswer =
             questions[currentQuestionIndex].answers[optionSelected!];
 
+          // Si es la ultima pregunta pasar a pantalla final
           if (currentQuestionIndex === questions.length - 1) {
             onFinishGame();
           }
-          if (optionSelected !== null && confirmResponse) {
-            onGoToNextQuestion();
-            setOptionSelected(null);
-            setConfirmResponse(false);
-            return;
-          }
+
+          // La opcion selecionada es correcta? Entonces incrementa el Score
           if (selectedAnswer?.isCorrect) {
             onIncrementScore();
           }
+
+          // Si existe una opcion selecionada y se envio
+          if (optionSelected !== null && confirmResponse) {
+            onGoToNextQuestion();
+            // Deseleciona la opcion
+            setOptionSelected(null);
+            // No hay una opcion selecionada
+            setConfirmResponse(false);
+            return;
+          }
+
+          // Enviar respuesta
           setConfirmResponse(true);
           toast(
             selectedAnswer?.isCorrect

@@ -1,4 +1,4 @@
-import s from './initialcard.module.css'
+import s from './InitialCard.module.css'
 import react from '../../assets/react.svg'
 import React from 'react';
 
